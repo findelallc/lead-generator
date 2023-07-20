@@ -10,4 +10,13 @@ app.use((request,response,next)=>{
     error.status=404;
     next(error);
 });
+app.use((error,request,response,next)=>{
+   response.status(error.status || 501);
+   response.json({
+    error:{
+        code:error.status || 501,
+        message:error.message || "something went wrong"
+    }
+   })
+});
 module.exports=app;
