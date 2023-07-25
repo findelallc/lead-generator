@@ -1,13 +1,16 @@
-import express, { response } from "express";
+import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import DatabaseConfig from "./config/mongodb";
+module.exports = DatabaseConfig;
+
 import lead from "./controller/lead";
 const app=express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use("/lead",lead)
 
+app.use("/lead",lead)
 
 app.use((request,response,next)=>{
     const error=new Error("not found");

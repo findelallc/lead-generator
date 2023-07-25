@@ -21,6 +21,6 @@ let leadGenerator=new schema({
         type:Boolean
     }
 },{
-    collection:"leads",versionkey:false
+    collection: "leads", versionKey: false
 });
 module.exports=mongoose.model('leadGenerator',leadGenerator);
