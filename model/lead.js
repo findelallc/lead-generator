@@ -16,6 +16,9 @@ let leadGenerator=new schema({
     },
     description:{
         type:String
+    },
+    status:{
+        type:Boolean
     }
 },{
     collection:"leads",versionkey:false
