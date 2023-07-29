@@ -30,7 +30,7 @@ router.post("/new", async (req,response,next)=>{
     }
 });
 
-router.patch("/lead",async (request,response,next)=>{
+router.patch("/update",async (request,response,next)=>{
  let object={
     identifier:request.body.uid,
     name:request.body.name,
@@ -48,6 +48,7 @@ router.patch("/lead",async (request,response,next)=>{
       })
  }
  else{
+    console.log(object.identifier)
     leadGenerator.findOneAndUpdate(
         { uid:object.identifier },
         {
