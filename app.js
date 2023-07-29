@@ -25,4 +25,5 @@ app.use((error,request,response,next)=>{
     }
    })
 });
-module.exports = {app, DatabaseConfig};
+module.exports = DatabaseConfig;
+module.exports = app;
