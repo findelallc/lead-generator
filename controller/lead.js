@@ -93,15 +93,19 @@ router.get("/list", async (req, res, next) => {
             query = query.length ? query :  [];
             query.push({
                 [key]: (req.query[key] === NaN ? 
-                {$regex: req.query[key], $options:'i' } : req.query[key])
+                {
+                    $elemMatch: { 
+                        $regex: req.query[key], 
+                        $options: 'i' 
+                    }
+                }: req.query[key])
             }); 
         }
         else {
             query[key] = (req.query[key] === NaN ? 
-                {$regex: req.query[key], $options:'i' } : req.query[key])
+                {'$regex': req.query[key], $options:'i' } : req.query[key])
         }
     });
-    console.log(query);
     leadGenerator.find(checkParams.length > 1 ? {$and: query} : query, {'_id': 0}).then(response => {
         util.sendResponse(res, response, {
             message: "Leads fetched successfully.",
