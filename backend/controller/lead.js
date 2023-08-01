@@ -88,7 +88,9 @@ router.patch("/update",async (request,response,next)=>{
 router.get("/list", async (req, res, next) => {
     let query = {};
     let checkParams = Object.keys(req.query);
-    Object.keys(req.query).forEach(function(key) {
+    console.log(req.query);
+    checkParams.forEach(function(key) {
+       // console.log(key);
         if(checkParams.length > 1) {
             query = query.length ? query :  [];
             query.push({
@@ -118,5 +120,42 @@ router.get("/list", async (req, res, next) => {
         });
     });
 });
+
+// Delete api
+router.delete("/remove", async (req, res, next) => {
+    let instance = {
+        identifier : req.query.uid
+    }
+    const validator = Object.keys(instance);
+    if(!util.validateRequest(instance, validator)){
+        util.sendResponse(response, '', {
+            message: "validation fail",
+            code: 400
+        })
+    }
+    else{
+        leadGenerator.deleteOne({
+            uid : instance.identifier
+        }).then(response=>{
+            if (response.deletedCount){
+                util.sendResponse(res, response, {
+                    message: "Lead deleted successfully.",
+                    code: 200
+                });  
+            }
+            else{
+                util.sendResponse(res, response, {
+                    message: "No Lead with this id found.",
+                    code: 204
+                });    
+            }
+        }).catch(error=>{
+            util.sendResponse(res, error, {
+                message: "Internal Server error.",
+                code: 500
+            });
+        })
+    }
+})
 
 module.exports=router;

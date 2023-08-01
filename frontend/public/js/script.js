@@ -5,6 +5,7 @@ $(document).ready(function() {
         e.preventDefault();
         inputs = {};
         input_serialized =  $(this).serializeArray();
+        console.log(input_serialized)
         input_serialized.forEach(field => {
           inputs[field.name] = field.value;
         })
