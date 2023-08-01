@@ -50,7 +50,6 @@ router.patch("/update",async (request,response,next)=>{
       })
  }
  else{
-    console.log(object.identifier)
     leadGenerator.findOneAndUpdate(
         { uid:object.identifier },
         {
@@ -88,9 +87,7 @@ router.patch("/update",async (request,response,next)=>{
 router.get("/list", async (req, res, next) => {
     let query = {};
     let checkParams = Object.keys(req.query);
-    console.log(req.query);
     checkParams.forEach(function(key) {
-       // console.log(key);
         if(checkParams.length > 1) {
             query = query.length ? query :  [];
             query.push({
