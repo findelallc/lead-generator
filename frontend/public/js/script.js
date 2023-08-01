@@ -66,7 +66,7 @@ function renderList(dataList) {
                                 '<small class="text-sm d-block">'+item.email+
                                 '</small>'+
                                 item.contactNo+
-                                '<span class="badge bg-warning text-dark fw-bolder ms-1">'+
+                                '<span class="badge bg-warning text-dark fw-bolder ms-2">'+
                                 item.country+'</span>'+
                                 '<br/>'+
                                 item.description+

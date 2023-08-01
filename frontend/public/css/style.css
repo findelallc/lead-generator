@@ -11,23 +11,27 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #005C97;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+.bg-banner {
+    position: fixed;
+    left: 0;
+    z-index: -1;
+    top: -250px;
+    width: 100%;
 }
 .container-wrapper{
     position: relative;
     max-width: 500px;
     width: 100%;
     border-radius: 6px;
-    padding: 30px;
+    padding: 15px 30px;
     margin: 0 15px;
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
 .container-wrapper.list{
-    max-width: 980px;
+    max-width: 720px;
 }
 
 .container-wrapper header{
@@ -129,7 +133,7 @@ form .fields .input-field{
     color: #fff;
     border-radius: 5px;
     margin: 25px 0;
-    background-color: #000000;
+    background-color: #3e3e3e;
     transition: all 0.3s linear;
     cursor: pointer;
 }
@@ -138,7 +142,7 @@ form .fields .input-field{
     font-weight: 400;
 }
 form button:hover{
-    background-color: #265df2;
+    background-color: #000000;
 }
 form button i,
 form .backBtn i{
