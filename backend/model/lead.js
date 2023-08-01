@@ -8,7 +8,7 @@ let leadGenerator=new schema({
     email:{
         type:String
     },
-    contactno:{
+    contactNo:{
         type:Number
     },
     country:{
