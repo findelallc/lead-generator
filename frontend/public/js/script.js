@@ -14,7 +14,6 @@ $(document).ready(function() {
             type: 'POST',
             data: inputs,
             success: function(data) {
-                console.log(data);
                 if(data.status === 201) {
                     $.toast({
                         heading: 'Success',
