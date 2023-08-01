@@ -3,6 +3,7 @@ import util from "../helper/util";
 import leadGenerator from  "../model/lead";
 const router = express.Router();
 
+// NEW LEAD DATA
 router.post("/new", async (req,response,next)=>{
    let request={
         name:req.body.name,
@@ -30,6 +31,7 @@ router.post("/new", async (req,response,next)=>{
     }
 });
 
+// UPDATE LEAD DATA
 router.patch("/update",async (request,response,next)=>{
  let object={
     identifier:request.body.uid,
@@ -81,5 +83,36 @@ router.patch("/update",async (request,response,next)=>{
     
  }
 })
+
+// GET ALL LEADS
+router.get("/list", async (req, res, next) => {
+    let query = {};
+    let checkParams = Object.keys(req.query);
+    Object.keys(req.query).forEach(function(key) {
+        if(checkParams.length > 1) {
+            query = query.length ? query :  [];
+            query.push({
+                [key]: (req.query[key] === NaN ? 
+                {$regex: req.query[key], $options:'i' } : req.query[key])
+            }); 
+        }
+        else {
+            query[key] = (req.query[key] === NaN ? 
+                {$regex: req.query[key], $options:'i' } : req.query[key])
+        }
+    });
+    console.log(query);
+    leadGenerator.find(checkParams.length > 1 ? {$and: query} : query, {'_id': 0}).then(response => {
+        util.sendResponse(res, response, {
+            message: "Leads fetched successfully.",
+            code: 200
+        });
+    }).catch(error => {
+        util.sendResponse(res, error, {
+            message: "Internal Server error.",
+            code: 500
+        });
+    });
+});
 
 module.exports=router;
