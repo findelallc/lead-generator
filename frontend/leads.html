@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="public/lib/jquery-toaster/jquery.toast.min.css">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="public/lib/bootstrap/bootstrap.min.css">
+
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="public/css/style.css">
+
+    <title>Lead Generator Form </title> 
+</head>
+<body>
+    <div class="container-wrapper list my-5">
+        <header class="mb-4">Available Leads</header>
+        <div class="card my-2">
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item py-0">
+                        <b class="d-block">Tamaghna Banerjee</b>
+                        <small class="text-sm d-block">tamaghna@findela.com</small>
+                        8478896944 <span class="badge bg-warning text-dark fw-bolder ms-1">IN</span>
+                        <br/>
+                        Some description from the textbox
+                    </li>
+                </ul>
+                <div class="position-absolute d-inline-flex" style="top: 40px; right: 30px">
+                    <h4 class="uil-edit-alt my-auto text-primary" data-bs-toggle="modal" 
+                    data-bs-target="#exampleModalCenter" role="button"></h4>
+                    <h4 class="uil-trash-alt text-danger my-auto mx-3" role="button"></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" data-bs-backdrop="static" 
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                ...
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script src="public/lib/jquery/jquery.min.js"></script>
+    <script src="public/lib/jquery-toaster/jquery.toast.min.js"></script>
+    <script src="public/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="public/js/script.js"></script>
+</body>
+</html>

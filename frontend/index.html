@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--=== Coding by CodingLab | www.codinglabweb.com === -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="public/lib/jquery-toaster/jquery.toast.min.css">
+    <!----======== CSS ======== -->
+    <link rel="icon" href="https://img.icons8.com/3d-fluency/94/globe-africa.png" alt="globe-africa">
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="public/css/style.css">
+
+    <title>Lead Generator Form </title> 
+</head>
+<body>
+    <div class="container-wrapper form">
+        <header>Contact Us</header>
+
+        <form id="lead_generator">
+            <div class="form first">
+                <div class="details personal">
+                    <div class="fields">
+                        <div class="input-field">
+                            <label>Full Name</label>
+                            <input type="text" name="name" placeholder="Enter your name" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" name="email" placeholder="Enter your email" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Mobile Number</label>
+                            <input type="number" name="contactNo" placeholder="Enter mobile number" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Country</label>
+                            <select name="country" required>
+                                <option disabled selected>Select Country</option>
+                                <option value="IN">India</option>
+                                <option value="US">United States</option>
+                                <option value="UK">United Kingdom</option>
+                            </select>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Any message</label>
+                            <textarea rows="4" name="description" placeholder="Enter your description" required></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="saveBtn" type="submit">
+                <span class="btnText">Send Request</span>
+                <i class="uil uil-navigator"></i>
+            </button>
+        </form>
+    </div>
+
+    <script src="public/lib/jquery/jquery.min.js"></script>
+    <script src="public/lib/jquery-toaster/jquery.toast.min.js"></script>
+    <script src="public/js/script.js"></script>
+</body>
+</html>
