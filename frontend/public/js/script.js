@@ -43,9 +43,19 @@ function getLeadsList() {
             $.toast({
                 heading: 'Error',
                 text: 'An unexpected error occured while trying to submit data.',
-                icon: 'error'
+                icon: 'error',
+                position: 'top-center'
             })
+            
         }
+    }).catch(error => {
+        $.toast({
+            heading: 'Connection Error',
+            text: 'An unexpected error occured while connecting to the server.',
+            icon: 'error',
+            position: 'top-center'
+        })
+        renderList(leads.data);
     }); 
 }
 
