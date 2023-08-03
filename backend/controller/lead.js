@@ -85,27 +85,20 @@ router.patch("/update",async (request,response,next)=>{
 
 // GET ALL LEADS
 router.get("/list", async (req, res, next) => {
-    let query = {};
+    let query = [];
     let checkParams = Object.keys(req.query);
     checkParams.forEach(function(key) {
-        if(checkParams.length > 1) {
-            query = query.length ? query :  [];
+        query = query.length ? query :  [];
+        if(req.query[key].length > 2) {
             query.push({
-                [key]: (req.query[key] === NaN ? 
-                {
-                    $elemMatch: { 
-                        $regex: req.query[key], 
-                        $options: 'i' 
-                    }
-                }: req.query[key])
-            }); 
-        }
-        else {
-            query[key] = (req.query[key] === NaN ? 
-                {'$regex': req.query[key], $options:'i' } : req.query[key])
+                [key]: { 
+                    $regex: req.query[key], 
+                    $options: 'i' 
+                }
+            });
         }
     });
-    leadGenerator.find(checkParams.length > 1 ? {$and: query} : query, {'_id': 0}).then(response => {
+    leadGenerator.find(query.length ? {$and: query} : {}).then(response => {
         util.sendResponse(res, response, {
             message: "Leads fetched successfully.",
             code: 200
