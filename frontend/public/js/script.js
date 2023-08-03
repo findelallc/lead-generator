@@ -113,22 +113,26 @@ function leadAction(item, type) {
     leads.currentAction = type;
     ModalInstance.show();
     $("#leadActionModal .modal-footer .action-btn").remove();
+    $("#leadActionModal .modal-body .form.first").hide();
+    $("#leadActionModal .modal-body .caption-text").hide();
     if(leads.currentAction === 'delete') {
+        $("#leadActionModal .modal-body .caption-text").show();
         $("#leadActionModal .modal-header").empty().append('<h5><b>Delete Action</b></h5>')
-        $("#leadActionModal .modal-body").empty().append(document.createTextNode("Are you sure to remove this lead?"));
+        $("#leadActionModal .modal-body .caption-text").empty()
+        .append(document.createTextNode("Are you sure to remove this lead?"));
         $("#leadActionModal .modal-footer").append(
             '<button type="button" onclick="deleteLead(JSON.parse(\''+ JSON.stringify(item).replace(/'/g, '&apos;').replace(/"/g, '&quot;') + '\'))"'+
             'class="btn btn-danger action-btn">Delete</button>'
         )
     }
     else {
+        $("#leadActionModal .modal-body .form.first").show();
         $("#leadActionModal .modal-header").empty().append('<h5 class="mb-0"><b>Edit Action</b></h5>')
         $("#leadActionModal .modal-footer").append(
             '<button class="saveBtn action-btn btn btn-dark" type="submit">'+
                 '<span class="btnText"><b>Update</b></span>'+
                 '<img src="./public/images/loading-gif.gif" class="loader ms-1" width="15" alt="loader"/>'+
             '</button>'
-            
         );
         $(".loader").hide();
         for(let [key, value] of Object.entries(item)) {
@@ -153,7 +157,7 @@ function deleteLead (item) {
 }
 
 /**
- * Request to Server (POST / DELETE) (AJAX)
+ * Request to Server (POST / PATCH / DELETE) (AJAX)
  * @param {*} input
  * @param {*} slug 
  * @param {*} methodType 
