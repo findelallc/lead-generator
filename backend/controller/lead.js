@@ -34,13 +34,13 @@ router.post("/new", async (req,response,next)=>{
 // UPDATE LEAD DATA
 router.patch("/update",async (request,response,next)=>{
  let object={
-    identifier:request.body.uid,
+    uid:request.body.uid,
     name:request.body.name,
     email:request.body.email,
     contactNo:request.body.contactNo,
     country:request.body.country,
     description:request.body.description,
-    status:request.body.status
+    status:request.body.status || true
  };
  const validatorkeys = Object.keys(object);
  if(!util.validateRequest(object, validatorkeys)){
@@ -51,7 +51,7 @@ router.patch("/update",async (request,response,next)=>{
  }
  else{
     leadGenerator.findOneAndUpdate(
-        { uid:object.identifier },
+        { uid:object.uid },
         {
             status:object.status,
             name:object.name,

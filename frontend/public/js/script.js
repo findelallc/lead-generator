@@ -1,17 +1,21 @@
 const apiUrl= "http://localhost:5002/lead";
 const findInUrl = (window.location.href).match('leads');
-let leads = {data: [], currentAction: ''};
-let ModalInstance = '';
+let leads = {data: [], currentAction: 'new'};
+let ModalInstance = {};
 
 $(document).ready(function() {
-    $("#lead_generator").submit(function (e) { 
+    $("form.lead_generator").submit(function (e) { 
         e.preventDefault();
         inputs = {};
         input_serialized =  $(this).serializeArray();
         input_serialized.forEach(field => {
             inputs[field.name] = field.value;
         })
-        requestServer(inputs, '/new', 'POST')
+        requestServer(
+            inputs, 
+            leads.currentAction === 'new' ? '/new' : '/update', 
+            leads.currentAction === 'new' ? 'POST' : 'PATCH'
+        )
     });
     
     if(findInUrl) {
@@ -118,10 +122,26 @@ function leadAction(item, type) {
         )
     }
     else {
-        $("#leadActionModal .modal-header").empty().append('<h5><b>Edit Action</b></h5>')
+        $("#leadActionModal .modal-header").empty().append('<h5 class="mb-0"><b>Edit Action</b></h5>')
         $("#leadActionModal .modal-footer").append(
-            '<button type="button" class="btn btn-primary action-btn">Update</button>'
-        )
+            '<button class="saveBtn action-btn btn btn-dark" type="submit">'+
+                '<span class="btnText"><b>Update</b></span>'+
+                '<img src="./public/images/loading-gif.gif" class="loader ms-1" width="15" alt="loader"/>'+
+            '</button>'
+            
+        );
+        $(".loader").hide();
+        for(let [key, value] of Object.entries(item)) {
+            if($("form.lead_generator input[name='"+key+"']").length) {
+                $("form.lead_generator input[name='"+key+"']").val(value);
+            }
+            else if($("form.lead_generator select[name='"+key+"']").length) {
+                $("form.lead_generator select[name='"+key+"']").val(value);
+            }
+            else if($("form.lead_generator textarea[name='"+key+"']").length) {
+                $("form.lead_generator textarea[name='"+key+"']").val(value);
+            }
+        }
     }
 }
 
@@ -139,7 +159,7 @@ function deleteLead (item) {
  * @param {*} methodType 
  */
 function requestServer(input, slug, methodType) {
-    if(methodType === 'POST') {
+    if(['POST','PATCH'].includes(methodType)) {
         $(".btnText").text("Submitting..");
         $(".loader").show();
         $(".saveBtn").prop("disabled", true);
@@ -147,29 +167,46 @@ function requestServer(input, slug, methodType) {
     $.ajax({
         url: apiUrl + slug,
         type: methodType,
-        data: methodType === 'POST' ? input : {},
+        data: ['POST','PATCH'].includes(methodType) ? input : {},
         success: function(response) {
             if(response.status === methodType === 'POST' ? 201 : 200) {
                 $.toast({
                     heading: 'Success',
-                    text: methodType === 'POST' ? 'Form submited' : 'Lead deleted' + ' successfully',
+                    text: 
+                    (
+                        ['POST','PATCH'].includes(methodType) ? 
+                        'Form ' + (methodType === 'POST' ? 'submited' : 'updated') : 
+                        'Lead deleted'
+                    ) + ' successfully',
                     position: 'top-center',
                     stack: false,
                     icon: 'success'
                 })
-                if(methodType === 'POST') {
+                if(['POST','PATCH'].includes(methodType)) {
                     setTimeout(() => {
                         $(".loader").hide();
                         $(".btnText").text("Send Request");
-                        $('form#lead_generator').trigger("reset");
+                        $('form.lead_generator').trigger("reset");
                         $(".saveBtn").prop("disabled", false);
-                    }, 2000);
+                    }, 1200);
+
+                    if(methodType === 'PATCH') {
+                        ModalInstance.hide();
+                        leads.data.forEach((key,index) => {
+                            if(key.uid === input.uid) {
+                                leads.data[index] = input
+                            }
+                        });
+                        renderList(leads.data);
+                    }
                 }
-                if(methodType === 'DELETE') {
+                else if(methodType === 'DELETE') {
                     leads.data.splice(leads.data.findIndex(key => key.uid === input.uid), 1);
                     renderList(leads.data)
                     ModalInstance.hide();
                 }
+
+                leads.currentAction = 'new';
             }
         },
         fail: function(xhr, textStatus, errorThrown){
@@ -179,5 +216,12 @@ function requestServer(input, slug, methodType) {
                 icon: 'error'
             })
         }
+    }).catch(error => {
+        $.toast({
+            heading: 'Connection Error',
+            text: 'An unexpected error occured while connecting to the server.',
+            icon: 'error',
+            position: 'top-center'
+        });
     }); 
 }

@@ -12,6 +12,9 @@
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="public/lib/jquery-toaster/jquery.toast.min.css">
 
+    <!----======== icon ======== -->
+    <link rel="icon" href="https://img.icons8.com/3d-fluency/94/globe-africa.png" alt="globe-africa">
+
     <!----======== CSS ======== -->
     <link rel="stylesheet" href="public/lib/bootstrap/bootstrap.min.css">
 
@@ -21,6 +24,10 @@
     <title>Lead Generator Form </title> 
 </head>
 <body>
+    <a class="anchor-link" href="index.html">
+      <span style="margin: 5px auto;"> New List </span>
+      <i class="uil-plus" style="font-size: 22px; margin: 0 0 0 5px"></i>
+    </a>
     <div class="container-wrapper list my-5">
         <img src="./public/images/download.png" class="bg-banner"/>
         <header class="mb-4">Available Leads</header>
@@ -36,9 +43,50 @@
                 <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body"></div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <div class="modal-body">
+                <form class="lead_generator">
+                  <div class="form first px-2">
+                    <div class="details personal">
+                      <div class="fields">
+                          <div class="input-field">
+                              <label>Full Name</label>
+                              <input type="text" name="name" placeholder="Enter your name" required>
+                          </div>
+
+                          <div class="input-field">
+                              <label>Email</label>
+                              <input type="text" name="email" placeholder="Enter your email" required>
+                          </div>
+
+                          <div class="input-field">
+                              <label>Mobile Number</label>
+                              <input type="number" name="contactNo" placeholder="Enter mobile number" required>
+                          </div>
+
+                          <div class="input-field">
+                              <label>Country</label>
+                              <select name="country" required>
+                                  <option disabled selected>Select Country</option>
+                                  <option value="IN">India</option>
+                                  <option value="US">United States</option>
+                                  <option value="UK">United Kingdom</option>
+                                  <option value="JP">Japan</option>
+                              </select>
+                          </div>
+
+                          <div class="input-field">
+                              <label>Any message</label>
+                              <textarea rows="4" name="description" placeholder="Enter your description" required></textarea>
+                          </div>
+
+                          <input type="hidden" name="uid">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </form>
               </div>
             </div>
         </div>
